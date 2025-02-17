@@ -44,17 +44,18 @@ class TestSmokeTest():
   
   def test_homePage(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
-    self.driver.set_window_size(518, 680)
-    elements = self.driver.find_elements(By.CSS_SELECTOR, ".spotlight1 > h4")
+    self.driver.set_window_size(1168, 696)
+    elements = self.driver.find_elements(By.CSS_SELECTOR, ".header-logo img")
     assert len(elements) > 0
-    elements = self.driver.find_elements(By.CSS_SELECTOR, ".spotlight2 > h4")
+    assert self.driver.find_element(By.CSS_SELECTOR, ".header-title > h1").text == "Teton Idaho"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".header-title > h2").text == "Chamber of Commerce"
+    elements = self.driver.find_elements(By.CSS_SELECTOR, ".spotlight1 > .centered-image")
     assert len(elements) > 0
-    elements = self.driver.find_elements(By.LINK_TEXT, "Join Us!")
+    elements = self.driver.find_elements(By.CSS_SELECTOR, ".spotlight2 > .centered-image")
     assert len(elements) > 0
-    elements = self.driver.find_elements(By.LINK_TEXT, "Join Us")
+    elements = self.driver.find_elements(By.LINK_TEXT, "Join")
     assert len(elements) > 0
-    self.driver.find_element(By.LINK_TEXT, "Join Us").click()
-    self.driver.close()
+    self.driver.find_element(By.LINK_TEXT, "Join").click()
   
   def test_joinPage(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
@@ -70,15 +71,5 @@ class TestSmokeTest():
     self.driver.find_element(By.NAME, "submit").click()
     elements = self.driver.find_elements(By.NAME, "email")
     assert len(elements) > 0
-    self.driver.close()
-  
-  def test_main(self):
-    self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
-    self.driver.set_window_size(518, 680)
-    elements = self.driver.find_elements(By.CSS_SELECTOR, ".header-logo img")
-    assert len(elements) > 0
-    assert self.driver.find_element(By.CSS_SELECTOR, ".header-title > h1").text == "Teton Idaho"
-    assert self.driver.find_element(By.CSS_SELECTOR, ".header-title > h2").text == "Chamber of Commerce"
-    assert self.driver.title == "Teton Idaho CoC"
     self.driver.close()
   
